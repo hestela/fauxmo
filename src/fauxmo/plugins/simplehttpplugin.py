@@ -123,7 +123,10 @@ class SimpleHTTPPlugin(FauxmoPlugin):
 
         """
         if data:
-            data_bytes = urllib.parse.urlencode(data).encode('utf8')
+            if 'RAW' in data:
+                data_bytes = data['RAW'].encode('utf8')
+            else:
+                data_bytes = urllib.parse.urlencode(data).encode('utf8')
         else:
             data_bytes = None
         req = urllib.request.Request(
